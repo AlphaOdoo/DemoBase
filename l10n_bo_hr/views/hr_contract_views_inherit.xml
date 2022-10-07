@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>   
+        <!--PapeletaPAgo Form -->
+        <record model="ir.ui.view" id="contract_view_form_inherit_l10n_b0_hr">
+            <field name="name">contract.view.form.inherit.l10n_b0_hr</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='information']/group[@name='main_info']/group[@name='salary_and_advantages']/label[1]" position="before">
+                    <field name="salary_advance"/>
+                    <!-- <field name="transport_assignment"/>
+                    <field name="allowance_periods"/> -->
+                </xpath>
+
+                <xpath expr="//field[@name='job_id']" position="after">
+                   <field name="job_classification"/>
+                </xpath>
+
+                <xpath expr="//field[@name='date_start']" position="before">
+                  <!--<field name="contract_modality_c"/>-->
+                   <field name="contract_type_c"/> 
+                   <field name="contract_modality"/>
+                   <field name="novedades"/> 
+                </xpath>
+
+                <xpath expr="//field[@name='date_end']" position="after">
+                   <field name="retiree_reason"/>
+                </xpath>
+
+                <!-- <xpath expr="//group[@name='yearly_advantages']" position="inside">
+                  <field name="premium_bonus"/>
+                  <field name="bonus"/>
+                </xpath> -->
+
+                <xpath expr="//group[@name='main_info']" position="after">
+                  <group name="studio_group_xGWpd">
+                    <group name="studio_group_xGWpd_left" string="Discounts">
+                      <field name="other_discounts"/>
+                      <field name="fine"/>
+                      <field name="loan"/>
+                    </group>
+                  </group>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                  <page string="Salud">
+                    <group name="studio_group_oR6GJ">
+                      <group string="Institución de salud">                        
+                        <field name="health_manager"/>
+                        <field name="avc_number"/>
+                      </group>
+                    </group>
+                  </page>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                  <page string="Fondos de Pensión">
+                    <group name="studio_group_oR6GJ">
+                      <group string="AFP">     
+                       <field name="retiree"/>                   
+                        <field name="contributes_afp"/>
+                        <field name="afp_manager"/>
+                        <!-- <field name="insured_code"/> -->
+                        <field name="nua_cua"/>
+                        <field name="disabled_person"/>
+                        <field name="disabled_person_tutor"/>
+                        <!-- <field name="divisa"/> -->
+                      </group>
+                    </group>
+                  </page>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                  <page string="Novedades RCIVA">
+                    <group name="studio_group_oR6GJ">
+                      <group string="Saldos RCIVA">                        
+                        <field name="previous_rciva"/>
+                        <field name="current_rciva"/>
+                        <field name="form_110"/>
+                        <field name="previous_ufv" digits="[12,6]"/>
+                        <field name="current_ufv" digits="[12,6]"/>
+                      </group>
+                    </group>
+                  </page>
+                </xpath>
+
+
+            </field>
+           
+        </record>
+        
+
+  </data>
+</odoo>

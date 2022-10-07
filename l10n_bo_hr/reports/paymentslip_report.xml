@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_paymentslip_report"
+            model="report.paperformat">
+            <field name="name">Latinamerican Letter</field>
+            <field name="default" eval="True"/>
+            <field name="format">A5</field>
+            <!-- <field name="page_width">22</field>
+            <field name="page_height">27</field> -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">43</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paymentslip_report" model="ir.actions.report">
+            <field name="name">Payment Slip Report</field>
+            <field name="model">hr.payslip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_bo_hr.paymentslip_report_template</field>
+            <field name="report_file">l10n_bo_hr.paymentslip_report_template</field>
+            <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="l10n_bo_hr.paperformat_paymentslip_report"></field>
+        </record>
+    </data>
+</odoo>

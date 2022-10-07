@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_view_order_form_inherit_custom-crm">
+            <field name="name">sale.view_order_form.inherit.custom-crm</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//header/button[@name='action_cancel']" position="after">-->
+                <!--                    <button name="action_view_purchase_orders_inherit" string="Make orders Products"-->
+                <!--                            class="oe_highlight" type="object"-->
+                <!--                            attrs="{'invisible': ['|', ('state', 'not in', ['sent','sale']), ('id', '=', False)]}"/>-->
+
+                <xpath expr="//header/button[@name='action_cancel']" position="after">
+                <button name="import_product" string="Import Products" class="oe_highlight" type="object"/>
+<!--                    attrs="{'invisible': ['|', ('state', 'not in', ['sent','sale']), ('id', '=', False)]}"-->
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="view_CrmLead_form_sale_order_views_inherit" model="ir.ui.view">-->
+<!--            <field name="name">view.CrmLead.form</field>-->
+<!--            <field name="model">crm.lead</field>-->
+<!--            <field name="inherit_id" ref="crm.crm_lead_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//button[@name='action_set_lost']" position="after">-->
+<!--                    <button name="import_product" string="Import Products" class="oe_highlight" type="object"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+
+
+</odoo>
+
+

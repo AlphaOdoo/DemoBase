@@ -1,0 +1,204 @@
+<odoo>
+    <data>
+        <record id="view_CrmLead_form" model="ir.ui.view">
+            <field name="name">view.CrmLead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+                    <button name="import_product" string="Quotation from xlsx" class="oe_highlight" type="object"/>
+                </xpath>
+
+                 <xpath expr="//field[@name='name']" position="after">
+                    <p></p>
+                    <field name="cambioB" invisible="1"/>
+                    <field name="cambioD" invisible="1"/>
+                    <field name="currency_USD" invisible="1"/>
+                    <h2 class="o_row no-gutters align-items-end">
+                        <div class="col" attrs="{'invisible': [('type', '=', 'lead')]}">
+                            <label for="expected_revenue_1" class="oe_edit_only"/>
+                            <div class="o_row">
+                                <field name="expected_revenue_1" class="oe_inline" widget="monetary"
+                                       options="{'currency_field': 'currency_USD', 'position': 'after'}"/>
+                                <span class="oe_grey p-2" groups="crm.group_use_recurring_revenues">+</span>
+                                <span class="oe_grey p-2" groups="!crm.group_use_recurring_revenues">at</span>
+                            </div>
+                        </div>
+                        <div class="col" attrs="{'invisible': [('type', '=', 'lead')]}"
+                             groups="crm.group_use_recurring_revenues">
+                            <div class="o_row">
+                                <field name="recurring_revenue_1" class="pr-2 oe_inline" widget="monetary"
+                                       options="{'currency_field': 'currency_USD'}"/>
+                            </div>
+                        </div>
+                        <div class="col" attrs="{'invisible': [('type', '=', 'lead')]}"
+                             groups="crm.group_use_recurring_revenues">
+                            <div class="o_row">
+                                <field name="recurring_plan_1" class="oe_inline" placeholder="E.g. Monthly"
+                                       attrs="{'required': [('recurring_revenue_1', '!=', 0)]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <span class="oe_grey p-2">at</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="oe_edit_only d-flex align-items-center">
+                                <label for="probability"/>
+                                <button class="btn btn-link" name="action_set_automated_probability" type="object"
+                                        attrs="{'invisible': [('is_automated_probability', '=', True)]}">
+                                    <i class="fa fa-gear" role="img" title="Switch to automatic probability"
+                                       aria-label="Switch to automatic probability"/>
+                                </button>
+                                <small class="oe_grey h6 mb0"
+                                       attrs="{'invisible': [('is_automated_probability', '=', True)]}">
+                                    <field class="mb0" name="automated_probability" force_save="1"/>
+                                    %
+                                </small>
+                            </div>
+                            <div id="probability" class="o_row d-flex">
+                                <field name="is_automated_probability" invisible="1"/>
+                                <field name="probability" widget="float" class="oe_inline"/>
+                                <span class="oe_grey">%</span>
+                            </div>
+                        </div>
+                    </h2>
+                </xpath>
+                
+                <!-- <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" name="get_project_project" icon="fa-circle" type="object">
+                        <field string="Projects" name="project_count" widget="statinfo"/>
+                    </button>
+                </div> -->
+
+            </field>
+        </record>
+
+        <record id="view_CrmLead_kanbam" model="ir.ui.view">
+            <field name="name">view.CrmLead.kanbam</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="after">
+                    <field name="expected_revenue_1"/>
+                </xpath>
+                <xpath expr="//field[@name='activity_ids']" position="after">
+                    <progressbar field="activity_state"
+                                 colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
+                                 sum_field="expected_revenue_1"
+                                 help="This bar allows to filter the opportunities based on scheduled activities."/>
+                </xpath>
+                <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[2]/div[2]/t[1]/field[@name='expected_revenue']"
+                       position="after">
+                    <field name="expected_revenue_1" sum="Expected Revenues" optional="show" display="full"
+                           widget="monetary" options="{'currency_field': 'currency_USD'}"/>
+                    <field name="cambioB" display="full" attrs="{}" invisible="1"/>
+                    <field name="cambioD" display="full" attrs="{}" invisible="1"/>
+                    <field name="currency_USD" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_CrmLead_tree" model="ir.ui.view">
+            <field name="name">view.CrmLead.tree</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="after">
+                    <field name="currency_USD" invisible="1"/>
+                    <field name="expected_revenue_1" sum="Expected Revenues" optional="show" widget="monetary"
+                           options="{'currency_field': 'currency_USD'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_CrmLead_calendar_leads" model="ir.ui.view">
+            <field name="name">view.CrmLead.calendar.lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_calendar_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="after">
+                    <field name="currency_USD" invisible="1"/>
+                    <field name="expected_revenue_1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_CrmLead_quick_create_opportunity" model="ir.ui.view">
+            <field name="name">view.CrmLead.quick.create.opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_currency']" position="before">
+                    <field name="currency_USD" invisible="1"/>
+                    <label for="expected_revenue_1"/>
+                    <div class="o_row">
+                        <field name="expected_revenue_1" class="oe_inline mr-5" widget="monetary"
+                               options="{'currency_field': 'currency_USD'}"/>
+                        <field name="priority" class="oe_inline" nolabel="1" widget="priority"/>
+                    </div>
+                    <div class="o_row">
+                        <field name="recurring_revenue_1" class="oe_inline pr-4" widget="monetary"
+                               options="{'currency_field': 'currency_USD'}"/>
+                        <field name="recurring_plan_1" class="oe_inline" placeholder="E.g. Monthly"
+                               attrs="{'required': [('recurring_revenue', '!=', 0)]}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_CrmLead_case_tree_view_oppor" model="ir.ui.view">
+            <field name="name">view.CrmLead.case.tree.view.oppor</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="after">
+                    <field name="currency_USD" invisible="1"/>
+                    <field name="expected_revenue_1" sum="Expected Revenues USD" optional="show" widget="monetary"
+                           options="{'currency_field': 'currency_USD'}"/>
+                    <field name="recurring_revenue_monthly_1" sum="Expected MRR USD" optional="show" widget="monetary"
+                           options="{'currency_field': 'currency_USD'}"/>
+                    <field name="recurring_revenue_1" sum="Recurring Revenue USD" optional="hide" widget="monetary"
+                           options="{'currency_field': 'currency_USD'}"/>
+                    <field name="recurring_plan_1" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- crm.lead.view.pivot     -->
+
+        <record id="view_CrmLead_lead_view_pivot" model="ir.ui.view">
+            <field name="name">view.CrmLead.lead.view.pivot</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_pivot"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="after">
+                    <field name="currency_USD" invisible="1"/>
+                    <field name="expected_revenue_1" type="measure"/>
+                    <field name="recurring_revenue_monthly_1" type="measure"/>
+                </xpath>
+            </field>
+        </record>
+        <!--
+
+            <record id="view_CrmLead_crm_opportunity_view_dashboard" model="ir.ui.view">
+              <field name="name">view.CrmLead.crm.opportunity.view.dashboard</field>
+              <field name="model">crm.lead</field>
+              <field name="inherit_id" ref="crm_enterprise.crm_opportunity_view_dashboard"/>
+              <field name="arch" type="xml">
+                <xpath expr="//aggregate[@name='prorated_revenue_aggregate']" position="after">
+                <xpath expr="//group/group/aggregate[@name='prorated_revenue_aggregate']" position="inside">
+                    <field name="currency_USD" invisible="1" />
+                      <aggregate name="expected_revenue_aggregate_1" field="expected_revenue_1" string="Expected Revenue USD"/>
+
+                    <aggregate name="prorated_revenue_aggregate_1" field="prorated_revenue_1" invisible="1"/>
+
+                    <formula name="prorated_revenue_usd" string="Prorated Revenue USD" value="record.prorated_revenue_aggregate_1" widget="monetary" options="{'currency_field': 'currency_USD'}"/>
+
+                    <formula name="deal_size_usd" string="Average Deal Size" value="record.expected_revenue_aggregate_1 / record.opportunities" widget="monetary"/>
+                </xpath>
+              </field>
+            </record>   -->
+
+    </data>
+</odoo>

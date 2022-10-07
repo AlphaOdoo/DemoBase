@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>   
+        <!-- stock picking tree -->
+        <record model="ir.ui.view" id="stock_view_vpicktree_inherit_CompraImportacion">
+            <field name="name">stock.view.vpicktree.inherit.CompraImportacion</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+            
+              <xpath expr="//tree[1]/field[@name='origin']" position="after">
+                <field name="nro_order"/>                
+              </xpath>
+
+            </field>
+        </record>
+  </data>
+</odoo>

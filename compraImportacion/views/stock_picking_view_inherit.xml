@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>   
+        <!-- stock picking Form -->
+        <record model="ir.ui.view" id="stock_view_form_inherit_CompraImportacion">
+            <field name="name">stock.view.form.inherit.CompraImportacion</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='origin']" position="after">
+                <field name="nro_order" readonly="1"/>
+              </xpath>
+              
+            </field>
+        </record>
+  </data>
+</odoo>

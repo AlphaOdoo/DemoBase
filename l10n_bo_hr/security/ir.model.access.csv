@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_payroll_ministry,access_payroll_ministry,model_payroll_ministry,base.group_user,1,1,1,1 
+access_payroll_afp,access_payroll_afp,model_payroll_afp,base.group_user,1,1,1,1
+access_payroll_rciva,access_payroll_rciva,model_payroll_rciva,base.group_user,1,1,1,1 
+access_rciva,access_rciva,model_l10n_bo_hr_rciva,base.group_user,1,1,1,1 

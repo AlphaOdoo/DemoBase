@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record model="ir.ui.view" id="banking_wizard_form_view">
+            <field name="name">sales.banking.wizard.form</field>
+            <field name="model">sales.banking.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generate Sales Banking Report">
+                    <group>
+                        <field name="begin_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                    <group>
+                        <field name="report_types" widget="radio" />
+                    </group>
+                    <footer>
+                        <button name="print_xlsx" type="object" string="Create" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id='launch_sales_banking_wizard' model='ir.actions.act_window'>
+            <field name="name">Generacion de Reporte de Bancarización</field>
+            <!-- <field name="binding_model_id" ref="model_exploracion_mision"/> -->
+            <field name="res_model">sales.banking.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+
+
+</odoo>

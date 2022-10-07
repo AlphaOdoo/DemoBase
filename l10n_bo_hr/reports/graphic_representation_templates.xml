@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="graphic_representation_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="self_company" t-value="doc.env.company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- <div class="container" align="center">
+                            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 5px;"/>
+                        </div> -->
+                        <div class="container" align="center">
+                            <div class="row justify-content-start">
+                                <div class="col-2">
+                                    <h3 align="center">PAPELETA DE PAGO</h3>
+                            
+                                    <h4 t-field="doc.name" class="mt16"/> 
+                                </div>
+                            </div>
+                        </div> 
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <p align="left">Nit de la Empresa:</p>
+                                </div>
+                                <div class="col-3">                            
+                                    <p t-field="self_company.vat" class="mt16"/>
+                                    <p align="left">1020469023</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <p align="left">Número del Empleado:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p t-field="doc.employee_id.registration_number" class="mt16"/>                                </div> -
+                                <div class="col-3">
+                                    <p align="left">Tipo de Empleado:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p t-field="doc.employee_id.category_ids" class="mt16"/>                                                                         
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <p align="left">Nombres y apellidos:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p t-field="doc.employee_id" class="mt16"/>
+                                </div>
+                                <div class="col-3">
+                                    <p align="left">Oficina:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p t-field="doc.employee_id.work_location" class="mt16"/>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <p align="left">Cargo:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p t-field="doc.employee_id.job_title" class="mt16"/>
+                                </div>
+                                <div class="col-3">
+                                    <p align="left">Cod. Laboral:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p t-field="doc.employee_id.cod_laboral" class="mt16"/>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <p align="left"></p>
+                                </div>
+                                <div class="col-3">
+                                    <!--<p t-field="self_company.vat" class="mt16"/>-->
+                                </div>
+                                <div class="col-3">
+                                    <p align="left">Cod. Patronal:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p align="left">01-927-0314</p>
+                                </div>
+                            </div>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th align="center" colspan="2">HABERES</th>
+                                        <th align="center" colspan="2">DESCUENTOS</th>                                        
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr t-foreach="doc.line_ids" t-as="det">
+                                    <td t-if="det.code" name="td_name">
+                                        <t t-esc="det.name" />
+                                    </td>
+                                    <td t-if="det.amount" name="td_amount">
+                                        <t t-esc="det.amount" />
+                                    </td>
+                                    <td t-if="det.code" name="td_name">
+                                        <t t-esc="det.name" />
+                                    </td>
+                                    <td t-if="det.amount" name="td_amount">
+                                        <t t-esc="det.amount" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Total Ganado</th>
+                                    <td>
+                                    </td>
+                                    <th>Total Descuentos</th>
+                                    <td>
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                            </table>
+                            <div class="row justify-content-start">
+                                <div class="col-6">
+                                    <p align="left">Líquido Pagable:</p>
+                                </div>
+                                <div class="col-6">
+                                    <p align="left">Fecha emision </p>
+                                </div>
+                            </div>
+                            <div class="container" align="center">
+                                <div class="row align-items-start">
+                                    <div class="col-3">
+                                        <p align="center">_____________________________________</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p align="center">_____________________________________</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p align="center" t-field="doc.employee_id" class="mt16"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <p align="center">Marcelo Sánchez Dunn Gerente de RRHH y Calidad ALPHA SYSTEMS SRL. </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container" align="left">
+                                <div class="row align-items-start">
+                                    <div class="col-2">
+                                        <h6> RCIVA-Dpdte mes siguiente </h6>
+                                    </div>
+                                </div>
+                            </div> 
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

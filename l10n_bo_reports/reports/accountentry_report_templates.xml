@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="accountentry_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+
+                    <!-- <t t-call="web.external_layout"> -->
+                    <!-- <t t-call="web.basic_layout"> -->
+                    <div style="height: 100%;" class="p-3">
+                        <div class="page"> 
+                            <!-- <t t-set="accountentry_group" t-value="o.run_sql('select name from account_move where')"/> -->
+                            <t t-set="accountentry_group" t-value="o.run_sql2()"/>
+                            <!-- <t t-set="accountentry_lines" t-value="o.run_sql1('Select account_id, round(sum(debit),2) as debito, 
+                                                                            round(sum(credit),2) as credito, round(sum(debit / 6.96),2) AS debitoSus, 
+                                                                            round(sum(credit / 6.96),2) as creditoSus 
+                                                                            FROM account_move_line where')"/> -->
+                            <t t-set="accountentry_lines" t-value="o.run_sql1('Select aa.code as code, aa.name as name,round(sum(aml.debit),2) as debito, 
+                                                                            round(sum(aml.credit),2) as credito, round(sum(aml.debit / 6.96),2) AS debitoSus, 
+                                                                            round(sum(aml.credit / 6.96),2) as creditoSus 
+                                                                            FROM account_move_line as aml
+                                                                            left join account_account as aa on aa.id= aml.account_id
+                                                                            where')"/>
+                            <t t-set="accountentry_total" t-value="o.run_sql('Select round(sum(debit),2) as debito, 
+                                                                            round(sum(credit),2) as credito, round(sum(debit / 6.96),2) AS debitoSus, 
+                                                                            round(sum(credit / 6.96),2) as creditoSus 
+                                                                            FROM account_move_line
+                                                                            where')"/>
+                            
+                            <!-- <div class="container p-3" align="left" style="height:5% !important;">                                
+                                <p> Asientos: </p>
+                                <t t-foreach="accountentry_group" t-as="part">
+                                    <p t-esc="part['name']"/>
+                                </t>                                
+                                <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> 
+                                <strong style="font-size: 35px !important;">Asiento Contable</strong>
+                                <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> 
+                                <strong style="font-size: 20px !important;">Alpha Systems SRL</strong>
+                            </div> -->
+
+                            <div class="container p-3" align="center" style="height:4% !important;">
+                                <strong style="font-size: 35px !important;">Asiento Contable</strong>
+                            </div>
+
+                            <div class="container p-3" align="left" style="height:10% !important;"> 
+                                <table class="table table-condensed" style="width:100% !important;">
+                                    <tbody style="font-size: 12px !important;">
+                                        <tr>
+                                            <th style="width:70%"/>
+                                            <th style="width:30%"/>
+                                        </tr>
+                                        <tr t-foreach="accountentry_group" t-as="part">
+                                            <th align="left">
+                                                <span t-esc="part['name']"/>
+                                            </th>
+                                            <th style="font-size: 20px !important;"><p>Alpha Systems SRL</p></th>
+                                        </tr>
+                                    </tbody>
+                                </table>    
+                            </div>
+
+                            <div class="container p-3" align="left" style="height:10%; font-size: 12px !important;">
+                                <table class="table table-condensed" style="width:100% !important;">
+                                    <tbody style="font-size: 14px !important;">
+                                        <tr>
+                                            <th style="width:10%"/>
+                                            <th style="width:60%"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                        </tr>                                       
+                                        <tr>
+                                            <th align="left"><p>Diario:</p></th>
+                                            <td>
+                                                <span t-field="o.journal_id"/>
+                                            </td>
+                                            <th align="left">Fecha Contable:</th>
+                                            <td>
+                                                <span t-field="o.date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th align="left">Referencia:</th>
+                                            <td>
+                                                <span t-field="o.partner_id"/>
+                                            </td>
+                                            <th align="left">Tipo de Cambio:</th>
+                                            <td>6.96                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th align="left">Glosa:
+                                            </th>
+                                            <td colspan="3">
+                                                <span t-field="o.ref"/>
+                                            </td>
+                                        </tr>      
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="container p-3" align="center" style="height:60%;font-size: 12px !important;">
+                                <table class="table table-condensed" style="width:100% !important;" FRAME="hsides" RULES="none">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40%"/>
+                                            <th style="width:15"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>                                            
+                                        </tr>                                                                      
+                                        <tr>
+                                            <th align="center">Código y Nombre de la Cuenta</th>
+                                            <th colspan="2" align="center">*****BOLIVIANOS*****</th>
+                                            <th colspan="2" align="center">*****DOLARES*****</th>
+                                        </tr>
+                                        <tr> 
+                                            <td></td>
+                                            <th align="center">Debe Bs</th>
+                                            <th align="center">Haber Bs</th>                                        
+                                            <th align="center">Debe USD</th>
+                                            <th align="center">Haber USD</th>
+                                        </tr>
+                                        
+                                    </thead>
+                                </table>
+                                <table class="table table-condensed" style="width:100% !important;">
+                                        
+                                    <tbody style="text-align:center; font-size: 14px">
+                                        <tr>
+                                            <th style="width:40%"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>                                            
+                                        </tr>
+
+                                        <tr t-foreach="accountentry_lines" t-as="det" >
+                                            <td align="left">
+                                                <span t-esc="det['code']"/> - <span t-esc="det['name']"/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-esc="det['debito']"/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-esc="det['credito']"/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-esc="det['debitosus']"/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-esc="det['creditosus']"/>
+                                            </td>                                       
+                                        </tr>
+                                        <!-- <tr t-foreach="o.line_ids" t-as="det">
+                                            <td align="left">
+                                                <span t-field="det.account_id"/>
+                                            </td>                                            
+                                            <td align="right">
+                                                <span t-field="det.debit" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-field="det.credit" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-esc="'{0:,.2f}'.format(float(det.debit/6.96))"/>
+                                            </td>
+                                            <td align="right">
+                                                <span t-esc="'{0:,.2f}'.format(float(det.credit/6.96))"/>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                           
+                                </table>
+                            </div>
+
+                            <div class="container p-3" align="center" style="height:5%; font-size: 16px !important;">
+                                <table class="table table-condensed" style="width:100% !important;" align="center" >
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:40%"/>
+                                            <th style="width:15"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>
+                                            <th style="width:15%"/>                                            
+                                        </tr>
+                                        <tr t-foreach="accountentry_total" t-as="tot" >
+                                            <th align="left">Totales de Comprobante
+                                            </th>
+                                            <th align="right">
+                                                <span t-esc="tot['debito']"/>
+                                            </th>
+                                            <th align="right">
+                                                <span t-esc="tot['credito']"/>
+                                            </th>
+                                            <th align="right">
+                                                <span t-esc="tot['debitosus']"/>
+                                            </th>
+                                            <th align="right">
+                                                <span t-esc="tot['creditosus']"/>
+                                            </th>                                       
+                                        </tr>
+
+                                        <!-- <tr>
+                                            <th align="left">Totales de Comprobante
+                                            </th>
+                                            <th>
+                                                <p t-field="o.amount_total_signed" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                            </th>
+                                            <th>
+                                                <p t-field="o.amount_total_signed" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                            </th>
+                                            <th>
+                                                <p t-esc="'{0:,.2f}'.format(float(o.amount_total_signed/6.96))"/>
+                                            </th>
+                                            <th>
+                                                <p t-esc="'{0:,.2f}'.format(float(o.amount_total_signed/6.96))"/>
+                                            </th>
+                                        </tr>                                   -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="container p-3" align="center" style="height:10% !important;">                                
+                                <table class="table table-condensed" style="width:100%; font-size: 12px !important;" align="center">            
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:22%"/>
+                                            <th style="width:22%"/>
+                                            <th style="width:22%"/>
+                                            <th style="width:22%"/>
+                                            <th style="width:12%"/>                                            
+                                        </tr> 
+                                        <tr>
+                                            <td align="center">Hecho por</td><!-- Responsable que confirma -->
+                                            <td align="center">Verificado por</td> <!-- jefe de areaa -->
+                                            <td align="center">Gerente Adm. y Financiera</td><!--  -->
+                                            <td align="center">Gerencia General</td><!-- -->
+                                            <td align="center">Firma Interesado</td><!-- -->
+                                        </tr>
+                                        <tr>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                        </tr>  
+                                        <tr>                                       
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                        </tr>
+                                        <tr>                                       
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                            <td align="center">   </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">________________</td>
+                                            <td align="center">________________</td>
+                                            <td align="center">________________</td>
+                                            <td align="center">________________</td>
+                                            <td align="center">______________________________</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="center">
+                                                <p t-field="o.create_uid"/>                                            
+                                            </td>
+                                            <td align="center">Miriam Quisbert Paredes</td>
+                                            <td align="center">Freddy Burgoa Quiroga</td>
+                                            <td align="center">Alvaro Taborga </td>
+                                            <td align="center">Nombre:_______________________</td>
+                                        </tr>
+                                        <tr>                                       
+                                            <td align="center"></td>
+                                            <td align="center"></td>
+                                            <td align="center"></td>
+                                            <td align="center"></td>
+                                            <td align="center">CI:___________________________</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                    <hr/>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </t> -->
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="consumo_regla_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="container" align="center">
+                            <div class="row justify-content-start">
+                                <div class="col-2">
+                                    <h3 align="center">PLANILLA</h3>
+                                   
+                                    <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
+                                        <field name="name">Basic Salary</field>
+                                        <field name="sequence" eval="1"/>
+                                        <field name="code">code</field>
+                                        <field name="category_id" ref="hr_payroll.BASIC"/>
+                                        <field name="condition_select">none</field>
+                                        <field name="amount_select">code</field>
+                                        
+                                        <field name="amount_python_compute">result = 2164 * 2</field>
+                                    </record>
+                                    <!-- <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="doc.line_ids" t-as="det">
+                                                <td name="td_name">
+                                                    <t t-esc="det.name" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table> -->
+                                    <!-- <record id="hr_rule_3" model="hr.salary.rule">
+                                        <field name="name">OTROS IMPONIBLES</field>
+                                        <field name="sequence" eval="3"/>
+                                        <field name="code">BONO</field>
+                                        <field name="category_id" ref="IMPONIBLE"/>
+                                        <field name="condition_select">python</field>
+                                        <field name="amount_select">code</field>
+                                        <field name="struct_id" ref="structure_007"/>
+                                        <field name="amount_python_compute">result = for record in self:
+                                        record['x_studio_target_price'] = record.standard_price * 1.15 </field>
+                                    </record> -->
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </t>
+            </t>  
+        </t>    
+    </template>
+</odoo>
+
+
+ 

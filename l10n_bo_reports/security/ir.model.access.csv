@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_l10n_bo_reports_sales_book_wiz,sales_book_wiz,model_sales_book_wizard,base.group_user,1,1,1,1
+acl_l10n_bo_reports_purchase_book_wiz,purchase_book_wiz,model_purchase_book_wizard,base.group_user,1,1,1,1
+acl_l10n_bo_reports_sales_banking_wiz,sales_banking_wiz,model_sales_banking_wizard,base.group_user,1,1,1,1
+acl_l10n_bo_reports_bankbook_wiz,bankbook_wiz,model_bankbook_xlsx_report_wizard,base.group_user,1,1,1,1

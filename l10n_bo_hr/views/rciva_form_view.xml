@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="rciva_action" model="ir.actions.act_window" >
+          <field name="name">Novedades Planillas</field>
+          <field name="res_model">l10n_bo_hr.rciva</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- <menuitem id="rciva1" 
+                name="Novedades Planillas" 
+                parent="hr_payroll.menu_hr_payroll_payslips" 
+                action="rciva_action"
+                sequence= "1"/> -->
+
+        <menuitem name="Novedades Planillas" id="rcivaction" action="rciva_action" parent="hr_payroll.menu_hr_payroll_payslips" sequence="7" groups="base.group_user"/>
+        
+        <!-- <menuitem name="Payroll" id="hr_work_entry_contract.menu_hr_payroll_root" sequence="1"/>
+        <menuitem name="Payslips" id="hr_payroll.menu_hr_payroll_payslips"
+                  parent="hr_work_entry_contract.menu_hr_payroll_root" sequence="10" />
+        <menuitem name="Novedades Planillas" id="menu_procurement_management_rciva"
+                  parent="hr_payroll.menu_hr_payroll_payslips" sequence="20"
+                  action="rciva_action"/> -->
+
+        <record model="ir.ui.view" id="rciva_view_form">
+            <field name="name">rciva.form</field>
+            <field name="model">l10n_bo_hr.rciva</field>
+            <field name="arch" type="xml">
+                <form string="Novedades Planilla">
+                    <sheet>
+                        <div>
+                            <group>
+                                <group string="Período">
+                                    <field name="month" />
+                                    <field name="year" />
+                                    <field name="employee_id"/>
+                                    <field name="update_date" 
+                                        attrs="{'invisible': [('update_date', '=', False)]}"/>
+                                </group>
+                                <group>
+                                    
+                                </group>
+                            </group>
+                            <field name="name" invisible="1" />
+                        </div>
+                        <group>
+                            <group>
+                                <field name="previous_balance"/>
+                                <field name="current_balance"/>
+                            </group>
+                            <group>                              
+                                <field name="form_110"/>
+                                <field name="rciva_balance"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="rciva_view_list">
+            <field name="name">rciva.list</field>
+            <field name="model">l10n_bo_hr.rciva</field>
+            <field name="arch" type="xml">
+                <tree string="Novedades Planilla">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="previous_balance"/>
+                    <field name="current_balance"/>
+                    <field name="form_110"/>
+                </tree>
+            </field>
+        </record>    
+
+    </data>
+</odoo>
+

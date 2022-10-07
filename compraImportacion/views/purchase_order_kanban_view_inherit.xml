@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>   
+        <!-- Orden Compra kanban -->
+        <record model="ir.ui.view" id="purchase_view_kanban_inherit_CompraImportacion">
+            <field name="name">purchase.view.form.kanban.inherit.CompraImportacion</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_kanban"/>
+            <field name="arch" type="xml">
+                 
+                <xpath expr="//field[@name='activity_ids']" position="after">
+                    <field name="nro_order" display="full"/>
+                </xpath>
+
+            </field>          
+        </record>
+  </data>
+</odoo>

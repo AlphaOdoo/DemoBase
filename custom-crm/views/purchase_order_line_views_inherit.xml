@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_line_view_inherit">
+            <field name="name">purchase.order.line.view.inherit1</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="nro_field" widget="integer" string="Nro"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

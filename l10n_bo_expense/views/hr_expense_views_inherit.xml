@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="hr_expense_view_form_expense" model="ir.ui.view">
+            <field name="name">hr.expense.view.form.expense</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+
+                 <!-- <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="partner_id"/>
+                    <field name="control_code"/>
+                    <field name="authorization_code"/>
+                 </xpath> -->
+
+
+                 <xpath expr="//field[@name='product_id']" position="before">
+                     <field name="fixed_background"/>
+                 </xpath>  
+
+                 <xpath expr="//field[@name='reference']" position="before">
+                    <field name="partner_id"/>
+                    <field name="partner_nit"/>
+                    <field name="invoice_number"/>
+                 </xpath>
+
+                 <xpath expr="//field[@name='reference']" position="after">
+                    <field name="control_code"/>
+                    <field name="authorization_code"/>
+                 </xpath>
+
+                 <xpath expr="//field[@name='total_amount']" position="before">
+                    <field name="rate"/>
+                    <field name="subtotal"></field>
+                    <field name="discount"/>
+                 </xpath>
+
+
+                 <!-- <xpath expr="//field[@name='extract_remote_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                 </xpath> -->
+
+            </field>
+
+     </record>
+</odoo>

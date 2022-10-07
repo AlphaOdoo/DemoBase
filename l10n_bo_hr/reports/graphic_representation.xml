@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="graphic_representation" model="ir.actions.report">
+        <field name="name">Representacion Grafica</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_bo_hr.graphic_representation_template</field>
+        <field name="report_file">l10n_bo_hr.graphic_representation_template</field>
+    </record>
+</odoo>

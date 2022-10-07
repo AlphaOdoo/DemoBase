@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--  Tracking kanban  -->
+      <record model="ir.ui.view" id="tracking_view_kanban">
+          <field name="name">tracking.kanban</field>
+          <field name="model">custom_purchase.tracking</field>
+          <field name="arch" type="xml">
+              <kanban>
+                  <field name="name"/>
+                  <field name="forwarder_id" readonly="1"/>
+                  <field name="number_guide"/>
+                  <field name="type_shipment"/>
+                  <field name="state_tracking"/>
+                  <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb16">
+                                    <!--<field name="priority" widget="priority"/>-->
+                                    <div class="o_kanban_record_headings ml-1">
+                                        <strong class="o_kanban_record_title"><span><t t-esc="record.forwarder_id.value"/></span></strong>
+                                    </div>
+                                    <strong><field name="number_guide"/></strong>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span><t t-esc="record.name.value"/> <t t-esc="record.type_shipment.value"/></span>
+                                        <!--<field name="activity_ids" widget="kanban_activity"/>-->
+                                    </div>
+                                    
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="state_tracking" widget="label_selection" options="{'classes': {'draft': 'default', 'cancel': 'default', 'done': 'success', 'approved': 'warning'}}"/>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </t>
+                  </templates>
+              </kanban>
+          </field>
+      </record>
+
+
+      <record model="ir.ui.view" id="tracking_form">
+          <field name="name">tracking.form</field>
+          <field name="model">custom_purchase.tracking</field>
+          <field name="arch" type="xml">
+              <form string="Formulario Seguimiento Compras">
+                  <sheet>
+                      <div class="oe_title">
+                            <h1 class="d-flex">
+                                <field name="name" placeholder="Código Seguimiento"/>
+                            </h1>
+                            <h2>
+                                <field name="incoterms" placeholder="Incoterms"/>
+                            </h2>
+                            <h2>
+                                <field name="type_shipment" placeholder="Tipo de Embarque"/>
+                            </h2>
+                      </div>
+                      <group>
+                          <group>
+                              <field name="forwarder_id"/>
+                              <field name="number_guide"/>
+                              <field name="weight_number_boxes"/>
+                              <field name="shipping_date"/>                            
+                              <field name="date_exit_manufacturer"/>
+                              <field name="date_estimated_arrival"/>
+                              
+                          </group>
+                          <group>                              
+                              <field name="date_pickup"/> 
+                              <field name="customs_warehouse"/>
+                              <field name="reception_part"/>                                                          
+                              <field name="state_tracking"/>
+                              <field name="customs_clearance"/>
+                              <field name="channel_custom" attrs="{
+                                                      'invisible': [('customs_clearance','=',False)]
+                                                      }"/>
+                              <field name="active"/>
+                          </group>
+                      </group>
+                      <notebook>
+                        <page string="Ordenes de Compra productos">
+                            <field name ="productsorder_ids"/>
+                        </page>
+                      </notebook>
+                  </sheet>
+              </form>
+          </field>
+      </record>
+
+      <record model="ir.ui.view" id="tracking_view_list">
+          <field name="name">tracking.list</field>
+          <field name="model">custom_purchase.tracking</field>
+          <field name="arch" type="xml">
+              <tree string="Seguimiento Compras">
+                  <field name="name"/>
+                  <field name="forwarder_id"/>
+                  <field name="number_guide"/>
+                  <field name="type_shipment"/>
+                  <field name="date_exit_manufacturer"/>
+                  <field name="date_pickup"/>
+                  <field name="state_tracking"/>
+                  <field name="active"/>
+              </tree>
+          </field>
+      </record>
+
+      <record model="ir.ui.view" id="tracking_view_search">
+          <field name="name">tracking.search</field>
+          <field name="model">custom_purchase.tracking</field>
+          <field name="arch" type="xml">
+              <search>
+                  <field name="name"/>
+                  <field name="forwarder_id"/>
+                  <field name="number_guide"/>
+                  <field name="type_shipment"/>
+                  <field name="state_tracking"/>
+              </search>
+          </field>
+      </record>
+
+  </data>
+</odoo>

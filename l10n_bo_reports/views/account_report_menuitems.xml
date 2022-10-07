@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="Bolivian SIN Reports" id="menu_sin_bolivia_report" sequence="5" parent="account.menu_finance_reports" groups="base.group_user"/>
+    <menuitem name="SIN Sales Book" id="menu_action_act_sales_book" action="launch_sales_book_wizard" parent="menu_sin_bolivia_report" sequence="6" groups="base.group_user"/>
+    <menuitem name="purchase book" id="purchase_csv" action="action_purchase_xlsx_report" parent="menu_sin_bolivia_report" sequence="7" groups="base.group_user"/>
+    <menuitem name="SIN Banking Report" id="menu_action_act_sales_banking" action="launch_sales_banking_wizard" parent="menu_sin_bolivia_report" sequence="8" groups="base.group_user"/>
+    <menuitem name="BankBook Report" id="menu_action_act_bankbook_report" action="launch_bankbook_report_wizard" parent="menu_sin_bolivia_report" sequence="9" groups="base.group_user"/>
+
+
+</odoo>

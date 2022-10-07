@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>   
+        <!-- Orden Compra Form -->
+        <record model="ir.ui.view" id="purchase_view_form_inherit_CompraImportacion">
+            <field name="name">purchase.view.form.inherit.CompraImportacion</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <h3>
+                        <field name="requested_type_ncr" placeholder="Tipo Orden de Compra"/>
+                    </h3>
+                    <h3>
+                        <field name="nro_order"/>
+                    </h3>
+                </xpath>
+<!--                  
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="nro_order"/>
+                </xpath> -->
+
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="partner_forwarder"/>    
+
+                    <!-- <field name="sale_order"/>                                            -->
+
+                </xpath>
+<!-- 
+                <xpath expr="//field[@name='date_order']" position="before">
+                    <field name="requested_type_ncr"/>
+                </xpath>   -->
+
+            </field>          
+        </record>
+  </data>
+</odoo>

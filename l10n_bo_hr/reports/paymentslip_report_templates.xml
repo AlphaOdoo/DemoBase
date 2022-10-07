@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="paymentslip_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <!-- <t t-set="tot" t-value="o.lines_id > 0"/> -->
+                    <!-- <t t-call="web.external_layout"> -->
+                    <!-- <t t-call="web.basic_layout"> -->
+                    <div style="border: 1px solid black; height: 50%;" class="p-3">
+                        <div class="page"> 
+                        
+                            <div class="container p-3" align="center" style="height:10% !important;">
+                                <strong style="font-size: 15px !important;">Papeleta de Pago</strong>
+                                <br/>
+                                <strong style="font-size: 13px !important;" t-field="o.name"></strong>
+                                
+                            </div>
+
+                            <div class="container p-3" align="left" style="height:23%; font-size: 10px !important;">
+                                <table class="table table-condensed" style="width:95%; font-size: 10px !important;">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:25%"/>
+                                            <th style="width:35%"/>
+                                            <th style="width:25%"/>
+                                            <th style="width:15%"/>
+                                        </tr>
+                                                                             
+                                        <tr>
+                                            <th align="left"><p>Nit de la Empresa:</p></th>
+                                            <td>1020469023
+                                                <!-- <span t-field="self_company.vat"/> -->
+                                            </td>
+                                            <th></th>
+                                            <td>                                               
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th align="left">Número del Empleado:</th>
+                                            <td>
+                                                <span t-field="o.employee_id.registration_number"/>
+                                            </td>
+                                            <th align="left">Tipo de Empleado:</th>
+                                            <td>
+                                                <span t-field="o.employee_id.category_ids"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th align="left">Nombres y apellidos:
+                                            </th>
+                                            <td>
+                                                <span t-field="o.employee_id"/>
+                                            </td>
+                                            <th align="left">Oficina:
+                                            </th>
+                                            <td>
+                                                <span t-field="o.employee_id.work_location"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th align="left">Cargo:
+                                            </th>
+                                            <td>
+                                                <span t-field="o.employee_id.job_title"/>
+                                            </td>
+                                            <th align="left">Cod. Laboral:
+                                            </th>
+                                            <td>
+                                                <!-- <span t-field="o.employee_id.firt_contract_date.avc_number"/> -->
+                                            </td>
+                                        </tr>      
+                                        <tr>
+                                            <th>
+                                            </th>
+                                            <td>
+                                            </td>
+                                            <th align="left">Cod. Patronal:
+                                            </th>
+                                            <td>01-927-0314
+                                                <!-- <span t-field="o.employee_id.cod_laboral"/> -->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="container p-3" align="center" style="height:50%; !important;">
+                                <table class="table table-condensed" style="width:100%; font-size: 10px  !important;" BORDER="2" RULES="COLS" FRAME="BOX">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50%"/>
+                                            <th style="width:50%"/>                                            
+                                        </tr>                                                                      
+                                        <tr>
+                                            <th align="center">HABERES</th>
+                                            <th align="center">DESCUENTOS</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-condensed" style="width:100%; font-size: 9px  !important;" BORDER="2" RULES="COLS" FRAME="BOX">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50%"/>
+                                            <th style="width:50"/>                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align:center;">
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%; font-size: 9px">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:60%"/>
+                                                            <th style="width:40%"/>                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="o.line_ids" t-as="det">
+                                                            <tr >
+                                                                <t t-if="(det.category_id.code == 'BASIC') and (det.amount>0) and (det.salary_rule_id.appears_on_payslip)">
+                                    
+                                                                    <td align="left">
+                                                                        <span t-field="det.salary_rule_id"/>
+                                                                    </td>                                            
+                                                                    <td align="right">
+                                                                        <span t-field="det.amount" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                                                    </td>                                                                    
+                                                                </t> 
+                                                            </tr>
+                                                        </t>         
+                                                    </tbody>
+                                                </table>                                                
+                                            </td>
+
+                                            <td>
+                                                <table style="width:100%; font-size: 9px">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:60%"/>
+                                                            <th style="width:40%"/>                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="o.line_ids" t-as="de">
+                                                            <tr >
+                                                                <t t-if="(de.category_id.code == 'DED') and (de.amount>0) and (de.salary_rule_id.appears_on_payslip)">
+                                    
+                                                                    <td align="left">
+                                                                        <span t-field="de.salary_rule_id"/>
+                                                                    </td>                                            
+                                                                    <td align="right">
+                                                                        <span t-field="de.amount" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                                                    </td>                                                                    
+                                                                </t> 
+                                                            </tr> 
+                                                        </t>         
+                                                    </tbody>
+                                                </table>                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>                                           
+                                </table>
+                                <table class="table table-condensed" style="width:100%; font-size: 10px  !important;" BORDER="2" RULES="COLS">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30%"/>
+                                            <th style="width:20"/>
+                                            <th style="width:30%"/>
+                                            <th style="width:20%"/>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align:center;">
+                                        <tr>
+                                            <th align="left" style="width:30%">Total Ganado
+                                            </th>
+                                            <th align="right" style="width:20%">
+                                                <p t-field="o.net_wage" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                            </th>
+                                            <th align="left" style="width:30%">Total Descuentos
+                                            </th>
+                                            <th align="right" style="width:20%">
+                                            </th>
+                                        </tr>  
+                                    </tbody>                                           
+                                </table>
+                                <table class="table table-condensed" style="width:100%; font-size: 10px !important;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30%"/>
+                                            <th style="width:20"/>
+                                            <th style="width:50%"/>                                  
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align:center;">
+                                        <tr>
+                                            <th align="left">Líquido Pagable
+                                            </th>
+                                            <th>
+                                                <p t-field="o.net_wage" t-options='{"widget":"False", "widget": "float", "precision": 2}'/>
+                                            </th>
+                                            <th align="left">Fecha
+                                            </th>
+                                            <th>
+                                                <!-- <p t-field="o.amount_total_signed" t-options='{"widget":"False", "widget": "float", "precision": 2}'/> -->
+                                            </th>
+                                        </tr>
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="container p-3" align="left" style="height:22% !important;">
+                                <table class="table table-condensed" style="width:95%; font-size: 10px !important;">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:50%"/>
+                                            <th style="width:50%"/>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">_____________________________</td>
+                                            <td align="center">_____________________________</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <span t-field="o.employee_id"/>
+                                            </td>
+                                            <td align="center">Marcelo Sánchez Dunn<br/>Gerente de RRHH y Calidad<br/>ALPHA SYSTEMS SRL.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th align="left">RCIVA-Dpdte mes siguiente    
+                                            </th>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                         </div>
+                    </div>
+                    <!-- </t> -->
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

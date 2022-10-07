@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+     <!-- Record rules tracking-->
+    <record id="solo_activos_vistos_usuarios" model="ir.rule">
+        <field name="name">Only Active ordenes can be seen by users</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="model_id" ref="model_custom_purchase_tracking"/>
+        <field name="groups"
+               eval="[(4,ref('base.group_user'))]"/>
+        <field name="domain_force">[('active','=',True)]</field>
+    </record>
+
+    <record id="admins_ven_todas_las_ordenes" model="ir.rule">
+        <field name="name">All ordenes can be seen by admins</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="model_id" ref="model_custom_purchase_tracking"/>
+        <field name="groups"
+               eval="[(4,ref('custom_purchase.group_custom_purchase_admin'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+</odoo>

@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tax_report" model="account.tax.report">
+        <field name="name">Tax Report</field>
+        <field name="country_id" ref="base.bo"/>
+    </record>
+
+
+    <record id="tax_report_line_it" model="account.tax.report.line">
+        <field name="name">IT</field>
+        <field name="tag_name">IT</field>
+        <field name="sequence">4</field>
+        <field name="report_id" ref="tax_report"/>
+    </record>
+
+
+    <record id="it_03" model="account.tax.template">
+        <field name="name">IT +3.00 %</field>
+        <field name="description">IT +3.00 %</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * 0.03</field>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="include_base_amount">0</field>
+        <field name="price_include" eval="False"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 0,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152001'),
+                'plus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 0,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152001'),
+                'minus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+    </record>
+    <record id="it_m03" model="account.tax.template">
+        <field name="name">IT -3.00 %</field>
+        <field name="description">IT -3.00 %</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * -0.03</field>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="include_base_amount">0</field>
+        <field name="price_include" eval="False"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 0,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta60320001'),
+                'plus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 0,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta60320001'),
+                'minus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+    </record>
+
+    <record id="iva_sale" model="account.tax.template">
+        <field name="name">IVA Venta 13.00 %</field>
+        <field name="description">IVA Venta 13.00 %</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * 0.13</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20151001'),
+                'plus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20151001'),
+                'minus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+    </record>
+
+    <record id="iva_purchase" model="account.tax.template">
+        <field name="name">IVA Compras 13.00 %</field>
+        <field name="description">IVA Compras 13.00 %</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * 0.13</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_purchase_iva_13"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'account_id': ref('cuenta10131001'),
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta10126001'),
+                'plus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'account_id': ref('cuenta10131001'),
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta10126001'),
+                'minus_report_line_ids': [ref('tax_report_line_it')],
+            }),
+        ]"/>
+    </record>
+
+    <record id="it_purchase_03" model="account.tax.template">
+        <field name="name">Retención IT 3%</field>
+        <field name="description">Retención IT 3%</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * 0.03</field>
+        <field name="price_include" eval="False"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152003'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152003'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="iue_purchase_05" model="account.tax.template">
+        <field name="name">Retención IUE 5%</field>
+        <field name="description">Retención IUE 5%</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * 0.05</field>
+        <field name="price_include" eval="False"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="iue_purchase_12_5" model="account.tax.template">
+        <field name="name">Retención IUE 12.5%</field>
+        <field name="description">Retención IUE 12.5%</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * 0.125</field>
+        <field name="price_include" eval="False"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="iue_consignment_iva_13" model="account.tax.template">
+        <field name="name">RC - IVA RETENIDO</field>
+        <field name="description">RC - IVA RETENIDO</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit/0.87 * -0.13</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152005'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152005'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="iue_consignment_12_5" model="account.tax.template">
+        <field name="name">Retención IUE Remesas al Exterior 12.5 %</field>
+        <field name="description">Retención IUE Remesas al Exterior  12.5%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit * -0.125</field>
+        <field name="price_include" eval="False"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152004'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152004'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+
+    <record id="iue_consignment_grossingup_12_5" model="account.tax.template">
+        <field name="name">Retención IUE Remesas al Exterior 12.5% grossingup</field>
+        <field name="description">Retención IUE Remesas al Exterior 12.5% grossingup</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit/0.875 * -0.125</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152004'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152004'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+
+
+    <record id="it_grossingup_purchase_service" model="account.tax.template">
+        <field name="name">IT grossingup 3% servicios</field>
+        <field name="description">IT grossingup 3% servicios</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit/0.845 * -0.03</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152003'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152003'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="it_grossingup_purchase_good" model="account.tax.template">
+        <field name="name">IT grossingup 3% bienes</field>
+        <field name="description">IT grossingup 3% bienes</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit/0.92 * -0.03</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152003'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152003'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="iue_grossingup_purchase_service" model="account.tax.template">
+        <field name="name">IUE grossingup 12.5%</field>
+        <field name="description">IUE grossingup 12.5%</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit/0.845 * -0.125</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="iue_grossingup_purchase_good" model="account.tax.template">
+        <field name="name">IUE grossingup 5%</field>
+        <field name="description">IUE grossingup 5%</field>
+        <field name="type_tax_use">none</field>
+        <field name="amount_type">code</field>
+        <field name="amount">0</field>
+        <field name="python_compute">result=price_unit/0.92 * -0.05</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+    <record id="tax_0" model="account.tax.template">
+        <field name="name">Tasa 0</field>
+        <field name="description">Tasa 0</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">fixed</field>
+        <field name="amount">0</field>
+        <field name="price_include" eval="True"/>
+        <field name="tax_group_id" ref="tax_group_purchase_iva_13"/>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base'
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'plus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('cuenta20152002'),
+                'minus_report_line_ids': [ref('tax_report_base_imponible_compras_iva')],
+            }),
+        ]"/>
+    </record>
+
+    <record id="tax_iva_it" model="account.tax.template">
+        <field name="name">IVA + IT</field>
+        <field name="description">IVA + IT</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">group</field>
+        <field name="amount">0</field>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="children_tax_ids" eval="[(6, 0, [ref('it_03'),ref('it_m03'),ref('iva_sale'),])]"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+    </record>
+    <record id="group_purchase_goods" model="account.tax.template">
+        <field name="name">Compra bienes sin factura</field>
+        <field name="description">Compra bienes sin factura</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">group</field>
+        <field name="amount">0</field>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="children_tax_ids" eval="[(6, 0, [ref('it_purchase_03'),ref('iue_purchase_05'),])]"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+    </record>
+    <record id="group_purchase_service" model="account.tax.template">
+        <field name="name">Compra servicios sin factura</field>
+        <field name="description">Compra servicios sin factura</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">group</field>
+        <field name="amount">0</field>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="children_tax_ids" eval="[(6, 0, [ref('it_purchase_03'),ref('iue_purchase_12_5'),])]"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+    </record>
+
+    <record id="group_grossingup_servicios" model="account.tax.template">
+        <field name="name">Grossingup servicios</field>
+        <field name="description">Grossingup servicios</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">group</field>
+        <field name="amount">0</field>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="children_tax_ids" eval="[(6, 0, [ref('it_grossingup_purchase_service'),ref('iue_grossingup_purchase_service'),])]"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+    </record>
+    <record id="group_grossingup_bienes" model="account.tax.template">
+        <field name="name">Grossingup bienes</field>
+        <field name="description">Grossingup bienes</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">group</field>
+        <field name="amount">0</field>
+        <field name="chart_template_id" ref="bo_chart_template"/>
+        <field name="children_tax_ids" eval="[(6, 0, [ref('it_grossingup_purchase_good'),ref('iue_grossingup_purchase_good'),])]"/>
+        <field name="tax_group_id" ref="tax_group_it_3"/>
+    </record>
+</odoo>

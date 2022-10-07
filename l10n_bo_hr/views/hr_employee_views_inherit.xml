@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+        <!-- Employee Form -->
+        <record model="ir.ui.view" id="hr_employee_views_form_inherit_hr">
+            <field name="name">hr.employee.views.form.inherit.hr</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='mobile_phone']" position="before">
+                    <!-- <field name="nro_empleado"/> -->
+                    <field name="all_name"/>
+                    <field name="paternal_surname"/>
+                    <field name="maternal_surname"/>
+                    <field name="maried_surname"/>
+                </xpath>
+
+                 <xpath expr="//field[@name='address_id']" position="before">
+                    <field name="sucursal_id"/>
+                 </xpath>
+
+                 <xpath expr="//field[@name='emergency_phone']" position="after">
+                     <field name="blood_type"/>
+                 </xpath>
+
+
+                 <xpath expr="//field[@name='identification_id']" position="after">
+                     <field name="cod_dependent"/>
+                 </xpath>
+
+                 <xpath expr="//field[@name='country_id']" position="after">
+                     <field name="doc_type"/>
+                 </xpath>
+
+                 <xpath expr="//field[@name='identification_id']" position="after">
+                     <field name="ci_ext"/>
+                 </xpath>
+
+                 <xpath expr="//field[@name='country_of_birth']" position="after">
+                     <field name="employee_address"/>
+                 </xpath>
+
+                 <!-- <xpath expr="//field[@name='registration_number']" position="after">
+                     <field name="cod_laboral"/>
+                 </xpath> -->
+
+                 <xpath expr="//field[@name='work_location']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1}</attribute>
+                 </xpath>
+
+                 <xpath expr="//group[@name='managers']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('active', '=', True)]}</attribute>
+                 </xpath>
+
+                 <xpath expr="//field[@name='tz']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1}</attribute>
+                 </xpath>
+
+
+                  <!-- <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='information']/group[@name='main_info']/group[@name='salary_and_advantages']/label[1]" position="before">
+                    <field name="salary_advance"/>
+                  -</xpath> -->
+
+                 <!-- <xpath expr="//field[@name='address_id']" position="after">
+                    <group string="Datos Adicionales">
+                      <field name="insured_code"/>
+                      <field name="nua_cua"/>
+                      <field name="contributes_afp" />
+                      <field name="disabled_person" />
+                      <field name="disabled_person_tutor"/>
+                    </group>
+                 </xpath> -->
+
+                 <xpath expr="//field[@name='km_home_work']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1}</attribute>
+                 </xpath>
+
+
+                 
+            </field>
+        </record>
+  </data>
+</odoo>

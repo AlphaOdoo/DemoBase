@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>   
+        <!-- Orden Compra Reporte -->
+        <record model="ir.ui.view" id="purchase_report_inherit_CompraImportacion">
+            <field name="name">purchase.report.inherit.CompraImportacion</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.report_purchaseorder"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/t/t/div/h2[1]" position="after">
+                    <div class="row">
+                    <div class="col">
+                        <span t-field="o.nro_order"/>
+                    </div>
+                    </div>
+                </xpath>
+
+            </field>          
+        </record>
+  </data>
+</odoo>
